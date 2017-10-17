@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+
+int main(){
+  
+int arr[10] = {5, 5, 6, 7, -3, 3, 10, 9, 2, 56};
+  
+int sum = 0;
+  
+int seredne;
+  
+int n = 0;
+  
+for(int i = 0; i<10; i++){
+    
+if(i%2!=0){
+      
+	sum+=arr[i];
+      
+	n++;
+    }
+  
+	}
+  
+  
+seredne = sum / n;
+    
+printf("%d", seredne);
+  
+  
+return 0;
+
+}
