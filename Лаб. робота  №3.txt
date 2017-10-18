@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <string.h>
+int main(){
+  char s[1000] = {0,};
+  printf("Enter stroke s: \n");
+  gets(s);
+  char str[256][256] = {0,};
+  int i = 0;
+  int maxlen_i = 0, maxlen = 0;
+  int minlen_i = 0, minlen = 0;
+  char* p = strtok(s," ,.");
+  minlen = strlen(p);
+  
+  while(p){
+	  if(strlen(p) > maxlen){
+      maxlen = strlen(p);
+	    maxlen_i = i;
+	  }
+	  if(strlen(p) < minlen){
+      minlen = strlen(p);
+	    minlen_i = i;
+	  }
+	strcpy(str[i++],p);
+	p = strtok(NULL," ,.");
+  }
+  printf("The shortest word is:%s\n", str[minlen_i]);
+  printf("The longest word is:%s", str[maxlen_i]);
+  return 0;
+}
