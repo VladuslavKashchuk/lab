@@ -1,0 +1,73 @@
+// списки.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <stdlib.h>
+
+struct Node {
+	int value;
+	Node* next;
+};
+
+void printList(Node*head) {
+	Node *node = head;
+	while (node) {
+		printf("%d \n", node->value);
+		node = node->next;
+	}
+}
+
+void deletePositive(Node*head) {
+	Node*node = head;
+	Node*prev = NULL;
+	while (node) {
+		if (node->value > 0) {
+			Node*next = node->next;
+			if (prev) {
+				prev->next = next;
+				delete node;
+				node = next;
+			}
+			else
+				head = node = next;
+		}
+		else {
+			prev = node;
+			node = node->next;
+		}
+	}
+	printf("\n");
+	printList(head);
+}
+
+Node* createNode(int t, Node *number) {
+	Node *new_node = new Node;
+	new_node->value = t;
+	new_node->next = NULL;
+	if (number != NULL) {
+		number->next = new_node;
+	}
+	return new_node;
+}
+
+int main()
+{
+	int n, t;
+	printf("Quatity of numbers:");
+	scanf("%d", &n);
+	printf("Enter numbers: \n");
+	Node *head = NULL, *node = NULL;
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &t);
+		node = createNode(t, node);
+		if (head == NULL) { head = node; }
+	}
+	node = createNode(t, node);
+	printf("\n Output: \n");
+	printList(head);
+	printf("\n");
+	deletePositive(head);
+
+    return 0;
+}
+
