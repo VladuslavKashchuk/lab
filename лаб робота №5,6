@@ -1,0 +1,71 @@
+// ConsoleApplication2.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <stdlib.h>
+
+typedef struct {
+	char name[20];
+	int population;
+	int area;
+} Country;
+
+void printCountry(Country c) {
+	printf("%s - %d(%d) \n", c.name, c.area, c.population);
+}
+
+Country createCountryFromString(char*string) {
+	int density = 0;
+	Country c;
+	c.area = 0; c.population = 0;
+	int i = 0;
+	char *t = string;
+	while (*t != ';') {
+		c.name[i] = *t;
+		*t++; i++;
+	}
+	c.name[i] = '\0';
+	*t++; i = 0;
+	char *area = (char*)malloc(sizeof(char) * 25);
+	while (*t != ';') {
+		area[i] = *t;
+		*t++; i++;
+	}
+	area[i] = '\0';
+	c.area = atoi(area);
+	char *population = (char*)malloc(sizeof(char) * 25);
+	while (*t != '\n') {
+		population[i] = *t;
+		*t++; i++;
+	}
+	population[i] = '\0';
+	c.population = atoi(population);
+	for (int i = 0; i < 3; i++) {
+		density = c.population / c.area;
+	}
+
+	return c;
+}
+
+int main()
+{
+	FILE *f = fopen("D:\\countries.txt", "rt");
+	if (f == NULL) return 0;
+	int n = 0;
+	//fscanf(f, "%d", &n);
+	//fgetc(f);
+	char *string = (char*)malloc(sizeof(char) * 25);
+	Country *countries = (Country*)malloc(sizeof(Country)*n);
+	for (int i = 0; i < 3; i++) {
+		string = fgets(string, 100, f);
+		Country country = createCountryFromString(string);
+		countries[i] = country;
+		printCountry(countries[i]);
+	}
+	fclose(f);
+
+	_gettch();
+	return 0;
+}
+
+
