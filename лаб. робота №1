@@ -1,0 +1,27 @@
+// ConsoleApplication2.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+
+int swapBits(unsigned int num, unsigned int pos1, unsigned int pos2, unsigned int n) {
+	unsigned int set1 = (num >> pos1) & ((1U << n) - 1);
+	unsigned int set2 = (num >> pos2) & ((1U << n) - 1);
+	unsigned int xor = (set1 ^ set2);
+	xor = (xor << pos1 | xor << pos2);
+
+	return num ^ xor;
+}
+
+int main()
+{
+	int num = 0, pos1 = 0, pos2 = 0;
+	scanf("%d", &num);
+	scanf("%d", &pos1);
+	scanf("%d", &pos2);
+
+	int result = swapBits(num, pos1, pos2, 1);
+	printf("Result: %d \n", result);
+
+    return 0;
+}
+
